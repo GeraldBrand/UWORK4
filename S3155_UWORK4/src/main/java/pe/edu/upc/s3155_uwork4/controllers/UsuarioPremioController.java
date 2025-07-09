@@ -3,6 +3,7 @@ package pe.edu.upc.s3155_uwork4.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import pe.edu.upc.s3155_uwork4.dtos.UsuarioConCantidadDTO;
 import pe.edu.upc.s3155_uwork4.dtos.UsuarioPremioDTO;
 import pe.edu.upc.s3155_uwork4.entities.Premio;
 import pe.edu.upc.s3155_uwork4.entities.Usuario;
@@ -87,6 +88,12 @@ public class UsuarioPremioController {
     @DeleteMapping("/{id}")
     public void eliminar(@PathVariable("id") int id) {
         uPS.Eliminar(id);
+    }
+
+
+    @GetMapping("/mas-de-n-premios")
+    public List<UsuarioConCantidadDTO> obtenerUsuariosConMasDeNPremios(@RequestParam("n") Long n) {
+        return uPS.usuariosConMasDeNPremios(n);
     }
 }
 

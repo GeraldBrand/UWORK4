@@ -38,4 +38,9 @@ public class PremioServiceImplement implements IPremioService {
     public void Eliminar(int id) {
         pR.deleteById(id);
     }
+
+    @Override
+    public List<Premio> buscarPorNombre(String keyword) {
+        return pR.findByNombrePremContainingIgnoreCase(keyword);
+    }
 }

@@ -10,6 +10,10 @@ import java.util.List;
 
 @Repository
 public interface IFormatoArchivoRepository extends JpaRepository<FormatoArchivo, Integer> {
-
-
+    //Consultar formato de archivos subidos con extensión ".docx"
+    @Query(value = "SELECT a.nombre_archivo, fa.extension\n" +
+            "FROM Archivo a\n" +
+            "JOIN formato_archivo fa ON a.id_formato_archivo = fa.id\n" +
+            "WHERE LOWER(fa.extension) = '.docx';", nativeQuery = true)
+    public List<String[]> buscarArchivosDocx();
 }

@@ -28,4 +28,12 @@ public interface IMensajeRepository extends JpaRepository<Mensaje, Integer> {
     // PARA QUE FUNCIONE EL CHAT ASESORIA LISTAR MENSAJES POR ID DE ASESORIA
     @Query("SELECT m FROM Mensaje m WHERE m.asesoria.idAsesoria = :idAsesoria ORDER BY m.fechaMensaje ASC")
     List<Mensaje> listarPorAsesoriaId(@Param("idAsesoria") int idAsesoria);
+
+    //Búsqueda de contenido de mensajes recibidos por estudiantes de ciclo inferior
+    @Query(value = "SELECT u.username, m.contenido\n" +
+            "FROM Mensaje m\n" +
+            "JOIN Usuario u ON m.id_usuario = u.id_usuario\n" +
+            "WHERE u.ciclo < 5\n" +
+            "  AND LOWER(m.contenido) LIKE '%' || LOWER(:contenido) || '%';",nativeQuery = true)
+    public List<String[]> buscarMensajesPorContenido(@Param("contenido") String contenido);
 }

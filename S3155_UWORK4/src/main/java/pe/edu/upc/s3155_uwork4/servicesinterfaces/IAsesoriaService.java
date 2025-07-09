@@ -11,4 +11,5 @@ public interface IAsesoriaService {
     public void Modificar(Asesoria a);
     public void Eliminar(int id);
     public List<Asesoria> listarPorUsuario(int idUsuario);
+    public List<String[]> contarAsesoriasPorFecha();
 }
