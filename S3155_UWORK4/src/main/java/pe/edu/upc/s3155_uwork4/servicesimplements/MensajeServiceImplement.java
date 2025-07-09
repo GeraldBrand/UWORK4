@@ -48,7 +48,7 @@ public class MensajeServiceImplement implements IMensajeService {
     }
 
     @Override
-    public List<String[]> buscarMensajesPorContenido(String contenido) {
-        return mR.buscarMensajesPorContenido(contenido);
+    public List<String[]> buscarMensajesPorContenido() {
+        return mR.buscarMensajesPorContenido();
     }
 }

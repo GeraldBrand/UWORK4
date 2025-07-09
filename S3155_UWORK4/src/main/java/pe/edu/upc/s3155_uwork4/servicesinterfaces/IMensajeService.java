@@ -16,5 +16,5 @@ public interface IMensajeService {
     //listar mensajes por asesoria es clave para construir el chat asesoria
 
     public List<Mensaje> listarPorAsesoriaId(int idAsesoria);
-    public List<String[]> buscarMensajesPorContenido(String contenido);
+    public List<String[]> buscarMensajesPorContenido();
 }

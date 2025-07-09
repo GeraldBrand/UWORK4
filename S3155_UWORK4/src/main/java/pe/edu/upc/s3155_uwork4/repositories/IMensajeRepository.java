@@ -34,6 +34,6 @@ public interface IMensajeRepository extends JpaRepository<Mensaje, Integer> {
             "FROM Mensaje m\n" +
             "JOIN Usuario u ON m.id_usuario = u.id_usuario\n" +
             "WHERE u.ciclo < 5\n" +
-            "  AND LOWER(m.contenido) LIKE '%' || LOWER(:contenido) || '%';",nativeQuery = true)
-    public List<String[]> buscarMensajesPorContenido(@Param("contenido") String contenido);
+            "  AND LOWER(m.contenido) LIKE '%examen%';",nativeQuery = true)
+    public List<String[]> buscarMensajesPorContenido();
 }

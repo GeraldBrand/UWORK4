@@ -86,9 +86,9 @@ public class MensajeController {
     }
     @PreAuthorize("hasAuthority('DESARROLLADOR') or hasAuthority('ADMIN') or hasAuthority('ESTUDIANTESUPERIOR') or hasAuthority('ESTUDIANTEINFERIOR')")
     @GetMapping ("/BuscarContenido")
-    public List<BuscarContenidoDTO> Buscarcontenido(@RequestParam String contenido)
+    public List<BuscarContenidoDTO> Buscarcontenido()
     {
-        List<String[]> lista = mS.buscarMensajesPorContenido(contenido);
+        List<String[]> lista = mS.buscarMensajesPorContenido();
         List<BuscarContenidoDTO> ListDTO=new ArrayList<>();
         for(String[] columna:lista){
             BuscarContenidoDTO dto=new BuscarContenidoDTO();
