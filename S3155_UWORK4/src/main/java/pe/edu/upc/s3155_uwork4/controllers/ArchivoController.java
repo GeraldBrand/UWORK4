@@ -2,6 +2,7 @@ package pe.edu.upc.s3155_uwork4.controllers;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -30,7 +31,6 @@ public class ArchivoController {
 
 
     @PreAuthorize("hasAuthority('DESARROLLADOR') or hasAuthority('ADMIN') or hasAuthority('ESTUDIANTESUPERIOR') or hasAuthority('ESTUDIANTEINFERIOR')")
-
     @GetMapping
     public List<ArchivoDTO> Listar() {
         return aS.listar().stream().map( x->{
@@ -40,7 +40,6 @@ public class ArchivoController {
     }
 
     @PreAuthorize("hasAuthority('DESARROLLADOR') or hasAuthority('ADMIN') or hasAuthority('ESTUDIANTESUPERIOR') or hasAuthority('ESTUDIANTEINFERIOR')")
-
     @PostMapping
     public void Registrar(@RequestBody ArchivoDTO dto){
         ModelMapper m = new ModelMapper();
@@ -72,7 +71,6 @@ public class ArchivoController {
     // asesoría, formato) en la BD.
 
     @PreAuthorize("hasAuthority('DESARROLLADOR') or hasAuthority('ADMIN') or hasAuthority('ESTUDIANTESUPERIOR') or hasAuthority('ESTUDIANTEINFERIOR')")
-
     @PostMapping("/upload")
     public ResponseEntity<Map<String, String>> subirArchivo(
             @RequestParam("archivo") MultipartFile archivo,
@@ -120,7 +118,6 @@ public class ArchivoController {
     // para mostrarlos en el chat DEL FRONTEND.
 
     @PreAuthorize("hasAuthority('DESARROLLADOR') or hasAuthority('ADMIN') or hasAuthority('ESTUDIANTESUPERIOR') or hasAuthority('ESTUDIANTEINFERIOR')")
-
     @GetMapping("/asesoria/{id}")
     public List<ArchivoDTO> listarPorAsesoria(@PathVariable("id") int idAsesoria) {
         return aS.listarPorAsesoria(idAsesoria).stream().map(a -> {
@@ -128,5 +125,17 @@ public class ArchivoController {
             return m.map(a, ArchivoDTO.class);
         }).collect(Collectors.toList());
     }
+
+
+    @GetMapping("/usuario/{id}/fecha/{fecha}")
+    public List<ArchivoDTO> buscarPorUsuarioYFecha(
+            @PathVariable("id") int idUsuario,
+            @PathVariable("fecha") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fecha) {
+        return aS.buscarPorUsuarioYFecha(idUsuario, fecha).stream().map(a -> {
+            ModelMapper mapper = new ModelMapper();
+            return mapper.map(a, ArchivoDTO.class);
+        }).collect(Collectors.toList());
+    }
+
 
 }

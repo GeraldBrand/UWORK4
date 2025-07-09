@@ -2,6 +2,7 @@ package pe.edu.upc.s3155_uwork4.servicesinterfaces;
 
 import pe.edu.upc.s3155_uwork4.entities.Archivo;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public interface IArchivoService {
@@ -14,5 +15,7 @@ public interface IArchivoService {
     //LISTAR ARCHIVOS POR ID DE ASESORIA - SERVIRA PARA MI COMPONENTE CHAT ASESORIA DEL FRONT END
 
     public List<Archivo> listarPorAsesoria(int idAsesoria);
+
+    List<Archivo> buscarPorUsuarioYFecha(int idUsuario, LocalDate fecha);
 
 }

@@ -63,7 +63,9 @@ public class DisponibilidadController {
     }
 
 
+
     //METODO PARA EL QUERY BUSCAR POR FECHA Y USUARIO
+    @PreAuthorize("hasAuthority('DESARROLLADOR') or hasAuthority('ADMIN') or hasAuthority('ESTUDIANTEINFERIOR')or hasAuthority('ESTUDIANTESUPERIOR')")
     @GetMapping("/usuario/{id}/fecha/{fecha}")
     public List<DisponibilidadDTO> obtenerDisponibilidadesPorFecha(@PathVariable("id") int idUsuario,
                                                                    @PathVariable("fecha") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fecha) {

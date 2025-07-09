@@ -12,6 +12,7 @@ import pe.edu.upc.s3155_uwork4.repositories.IFormatoArchivoRepository;
 import pe.edu.upc.s3155_uwork4.repositories.IUsuarioRepository;
 import pe.edu.upc.s3155_uwork4.servicesinterfaces.IArchivoService;
 
+import java.time.LocalDate;
 import java.util.List;
 @Service
 public class ArchivoServiceImplement implements IArchivoService {
@@ -70,5 +71,10 @@ public class ArchivoServiceImplement implements IArchivoService {
     @Override
     public List<Archivo> listarPorAsesoria(int idAsesoria) {
         return archivoRepository.findByAsesoriaIdAsesoria(idAsesoria);
+    }
+
+    @Override
+    public List<Archivo> buscarPorUsuarioYFecha(int idUsuario, LocalDate fecha) {
+        return archivoRepository.buscarPorUsuarioYFecha(idUsuario, fecha);
     }
 }
