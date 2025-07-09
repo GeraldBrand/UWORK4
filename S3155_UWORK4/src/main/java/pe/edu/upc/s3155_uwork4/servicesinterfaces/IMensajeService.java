@@ -1,5 +1,6 @@
 package pe.edu.upc.s3155_uwork4.servicesinterfaces;
 
+import org.springframework.data.repository.query.Param;
 import pe.edu.upc.s3155_uwork4.entities.Mensaje;
 
 import java.util.List;
@@ -15,4 +16,5 @@ public interface IMensajeService {
     //listar mensajes por asesoria es clave para construir el chat asesoria
 
     public List<Mensaje> listarPorAsesoriaId(int idAsesoria);
+    public List<String[]> buscarMensajesPorContenido();
 }

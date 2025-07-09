@@ -12,5 +12,6 @@ public interface IFormatoArchivoService {
     public FormatoArchivo listarporid(int id);
     public void Modificar(FormatoArchivo fa);
     public void Eliminar(int id);
+    public List<String[]> buscarArchivosDocx();
 
 }

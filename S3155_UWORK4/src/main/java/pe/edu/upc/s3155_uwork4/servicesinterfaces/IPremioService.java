@@ -10,4 +10,5 @@ public interface IPremioService {
     public Premio listarporid(int id);
     public void Modificar(Premio p);
     public void Eliminar(int id);
+    public List<Premio> buscarPorNombre(String keyword);
 }

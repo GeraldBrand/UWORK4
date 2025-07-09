@@ -11,6 +11,7 @@ import pe.edu.upc.s3155_uwork4.servicesinterfaces.IPremioService;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping("/premios")
 public class PremioController {
@@ -55,4 +56,11 @@ public class PremioController {
     public void eliminar(@PathVariable("id") int id) {
         premioService.Eliminar(id);
     }
+
+    @PreAuthorize("hasAuthority('DESARROLLADOR') or hasAuthority('ADMIN')")
+    @GetMapping("/buscar")
+    public List<Premio> buscarPremios(@RequestParam("keyword") String keyword) {
+        return premioService.buscarPorNombre(keyword);
+    }
+
 }

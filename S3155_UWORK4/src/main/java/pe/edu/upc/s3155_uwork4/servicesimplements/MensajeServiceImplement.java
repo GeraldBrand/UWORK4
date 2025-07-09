@@ -46,4 +46,9 @@ public class MensajeServiceImplement implements IMensajeService {
     public List<Mensaje> listarPorAsesoriaId(int idAsesoria) {
         return mR.listarPorAsesoriaId(idAsesoria);
     }
+
+    @Override
+    public List<String[]> buscarMensajesPorContenido() {
+        return mR.buscarMensajesPorContenido();
+    }
 }
