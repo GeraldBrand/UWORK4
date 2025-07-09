@@ -62,6 +62,7 @@ public class WebSecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(req -> req
                         .requestMatchers(HttpMethod.GET, "/premios").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/premios/buscar").permitAll()
                         .requestMatchers(HttpMethod.GET, "/articulos").permitAll()
                         .requestMatchers(
                                 "/login",
