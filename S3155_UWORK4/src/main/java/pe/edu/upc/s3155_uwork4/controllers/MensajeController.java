@@ -5,11 +5,11 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import pe.edu.upc.s3155_uwork4.dtos.BuscarContenidoDTO;
 import pe.edu.upc.s3155_uwork4.dtos.BusquedaPalabraMensajesDTO;
+import pe.edu.upc.s3155_uwork4.dtos.ContenidoFechaDTO;
 import pe.edu.upc.s3155_uwork4.dtos.MensajeDTO;
-import pe.edu.upc.s3155_uwork4.entities.Asesoria;
 import pe.edu.upc.s3155_uwork4.entities.Mensaje;
-import pe.edu.upc.s3155_uwork4.entities.Usuario;
 import pe.edu.upc.s3155_uwork4.servicesinterfaces.IMensajeService;
 
 import java.time.LocalDate;
@@ -83,5 +83,19 @@ public class MensajeController {
                 .stream()
                 .map(mensaje -> new ModelMapper().map(mensaje, MensajeDTO.class))
                 .collect(Collectors.toList());
+    }
+    @PreAuthorize("hasAuthority('DESARROLLADOR') or hasAuthority('ADMIN') or hasAuthority('ESTUDIANTESUPERIOR') or hasAuthority('ESTUDIANTEINFERIOR')")
+    @GetMapping ("/BuscarContenido")
+    public List<BuscarContenidoDTO> Buscarcontenido(@RequestParam String contenido)
+    {
+        List<String[]> lista = mS.buscarMensajesPorContenido(contenido);
+        List<BuscarContenidoDTO> ListDTO=new ArrayList<>();
+        for(String[] columna:lista){
+            BuscarContenidoDTO dto=new BuscarContenidoDTO();
+            dto.setUsername(columna[0]);
+            dto.setContenido(columna[1]);
+            ListDTO.add(dto);
+        }
+        return ListDTO;
     }
 }

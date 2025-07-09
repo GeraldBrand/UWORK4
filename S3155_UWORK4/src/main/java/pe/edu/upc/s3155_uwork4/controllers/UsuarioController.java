@@ -4,6 +4,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import pe.edu.upc.s3155_uwork4.dtos.ContenidoFechaDTO;
 import pe.edu.upc.s3155_uwork4.dtos.UsernameSinPasswordDTO;
 import pe.edu.upc.s3155_uwork4.dtos.UsuarioDTO;
 import pe.edu.upc.s3155_uwork4.entities.Rol;
@@ -11,6 +12,8 @@ import pe.edu.upc.s3155_uwork4.entities.Usuario;
 import pe.edu.upc.s3155_uwork4.repositories.IRolRepository;
 import pe.edu.upc.s3155_uwork4.servicesinterfaces.IUsuarioService;
 import org.springframework.security.crypto.password.PasswordEncoder;
+
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -89,4 +92,18 @@ public class UsuarioController {
         uS.Eliminar(id);
     }
 
+    @PreAuthorize("hasAuthority('DESARROLLADOR') or hasAuthority('ADMIN') or hasAuthority('ESTUDIANTESUPERIOR') or hasAuthority('ESTUDIANTEINFERIOR')")
+    @GetMapping ("/BuscarMensaje")
+    public List<ContenidoFechaDTO> BuscarMensaje(@RequestParam int id_usuario)
+    {
+        List<String[]> lista = uS.BuscarMensajeOrdenadosPorFecha(id_usuario);
+        List<ContenidoFechaDTO> ListDTO=new ArrayList<>();
+        for(String[] columna:lista){
+            ContenidoFechaDTO dto=new ContenidoFechaDTO();
+            dto.setContenido(columna[0]);
+            dto.setFechaMensaje(LocalDate.parse(columna[1]));
+            ListDTO.add(dto);
+        }
+        return ListDTO;
+    }
 }

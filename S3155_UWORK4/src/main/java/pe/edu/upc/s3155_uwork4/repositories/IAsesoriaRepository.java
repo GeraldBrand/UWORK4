@@ -11,4 +11,10 @@ import java.util.List;
 public interface IAsesoriaRepository extends JpaRepository<Asesoria, Integer> {
 
     List<Asesoria> findByUsuarioInferiorIdUsuarioOrUsuarioSuperiorIdUsuario(int idInferior, int idSuperior);
+    //Cantidad de asesorías agrupadas por fecha
+    @Query(value = "SELECT fecha_asesoria::date AS fecha, COUNT(*) AS cantidad_asesorias\n" +
+            "FROM Asesoria\n" +
+            "GROUP BY fecha_asesoria::date\n" +
+            "ORDER BY fecha;", nativeQuery = true)
+    public List<String[]> contarAsesoriasPorFecha();
 }

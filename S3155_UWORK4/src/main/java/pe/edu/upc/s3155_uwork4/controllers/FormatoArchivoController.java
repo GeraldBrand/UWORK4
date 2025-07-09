@@ -2,15 +2,15 @@ package pe.edu.upc.s3155_uwork4.controllers;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-import pe.edu.upc.s3155_uwork4.dtos.ArchivoDTO;
+import pe.edu.upc.s3155_uwork4.dtos.ConsultarFormatoArchivoDTO;
 import pe.edu.upc.s3155_uwork4.dtos.FormatoArchivoDTO;
 import pe.edu.upc.s3155_uwork4.entities.FormatoArchivo;
 import pe.edu.upc.s3155_uwork4.servicesinterfaces.IFormatoArchivoService;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -53,4 +53,18 @@ public class FormatoArchivoController {
         faS.Eliminar(id);
     }
 
+    @PreAuthorize("hasAuthority('DESARROLLADOR') or hasAuthority('ADMIN') or hasAuthority('ESTUDIANTESUPERIOR') or hasAuthority('ESTUDIANTEINFERIOR')")
+    @GetMapping ("/FormatosDocx")
+    public List<ConsultarFormatoArchivoDTO> formatoDocx()
+    {
+        List<String[]> lista = faS.buscarArchivosDocx();
+        List<ConsultarFormatoArchivoDTO> ListDTO=new ArrayList<>();
+        for(String[] columna:lista){
+            ConsultarFormatoArchivoDTO dto=new ConsultarFormatoArchivoDTO();
+            dto.setNombreArchivo(columna[0]);
+            dto.setExtension(columna[1]);
+            ListDTO.add(dto);
+        }
+        return ListDTO;
+    }
 }
