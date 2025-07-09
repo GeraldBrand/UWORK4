@@ -37,5 +37,8 @@ public class FormatoArchivoServiceImplement implements IFormatoArchivoService {
         faR.deleteById(id);
     }
 
+    @Override
+    public List<String[]> buscarArchivosDocx() { return faR.buscarArchivosDocx();}
+
 
 }

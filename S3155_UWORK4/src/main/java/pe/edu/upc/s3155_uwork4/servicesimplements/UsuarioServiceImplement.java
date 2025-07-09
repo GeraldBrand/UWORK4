@@ -42,4 +42,9 @@ public class UsuarioServiceImplement implements IUsuarioService {
     public List<String[]> ListarUsernameSinPassword() {
         return uR.ListarUsernameSinPassword();
     }
+
+    @Override
+    public List<String[]> BuscarMensajeOrdenadosPorFecha(int id_usuario) {
+        return uR.BuscarMensajeOrdenadosPorFecha(id_usuario);
+    }
 }
