@@ -64,6 +64,7 @@ public class WebSecurityConfig {
                         .requestMatchers(HttpMethod.GET, "/premios").permitAll()
                         .requestMatchers(HttpMethod.GET, "/premios/buscar").permitAll()
                         .requestMatchers(HttpMethod.GET, "/articulos").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/usuariopremio/mas-de-n-premios").permitAll()
                         .requestMatchers(
                                 "/login",
                                 "/api/v1/authentication/**",
